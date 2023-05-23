@@ -1,40 +1,29 @@
-import matplotlib.pyplot as plt
-import numpy as np
-
 def f(x):
-  return np.log10(x)*x - 1
+    return x**3 - x**2 - x - 1
 
-x = np.arange(1.0, 3.0, 0.1)
+def isolamento(a, b, precisao):
+  inter = []
+  x = a
+  while x <= b:
+    if f(x) * f(x + precisao) < 0:
+      inter.append((x, x + precisao))
+    x += precisao
+  for i in inter:
+    print("\n intervalo: ", i)
 
-b = 3.0
-a = 1.0
-eps = 0.01
-iter = 0
-xk   = []
-
-while ((b-a) > eps)&(iter <= 20):
-  print('[',a,',',b,']')
-  x0 = (b+a)/2
-  xk.append(x0)
-  # Novo intervalo: [a, x0]
-  if f(x0)*f(b) > 0:
-    b = x0
-  # Novo intervalo: [x0, b]  
-  else:
-    a = x0
-  iter = iter + 1
+def bisseccao(a, b, precisao):
+  while abs(b - a) > precisao:
+    x = (a+b) / 2
+    if (f(a)*f(x)) > 0:
+      a = x;
+    else:
+      b = x;
+  print("Raíz: ", (a+b) / 2)
+  print("\n\n")
 
 
-plt.figure()
-plt.grid()
-plt.plot(x,f(x),'b-')
-
-cont = 0
-for x in xk: 
-  plt.plot(x, f(x), 'ro')
-  name = '$x_' + str(cont) + '$'
-  plt.text(x,0.1*f(x),name,fontsize=12)
-  cont = cont + 1
-
-print('[',a,',',b,']')
-plt.show()
+a = -2
+b = 2
+precisao = 0.0005
+isolamento(a, b, precisao)
+bisseccao(a, b, precisao)
