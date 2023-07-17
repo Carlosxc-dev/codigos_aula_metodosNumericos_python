@@ -29,7 +29,7 @@ def resolucao(A, b):
         for j in range(k, n):
             s += A[k][j] * x[j]
             x[k] = (b[k] - s) / A[k][k]
-    print(x)
+    print("esse e o reultado: ", x)
 
 #dados de entrada
 A = ([[3, 2, 4], [1, 1, 2], [4, 3, -2]]) 
